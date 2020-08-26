@@ -1,3 +1,8 @@
+/*
+    CPP program to make 
+    binary search tree from 
+    given preorder traversal
+*/
 #include <iostream>
 #include <vector>
 using namespace std;
