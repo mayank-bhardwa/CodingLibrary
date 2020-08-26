@@ -36,8 +36,6 @@
 ehthumbs.db
 Thumbs.db
 .vscode
-input.txt
-output.txt
-error.txt
+*.txt
 version.cpp
 codinglibrary.code-workspace
