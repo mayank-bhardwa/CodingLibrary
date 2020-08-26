@@ -1,16 +1,6 @@
 #include <iostream>
+#include <vector>
 using namespace std;
-
-
-/*
-    Operations On Binary Search Tree
-    Floor
-    Ceil
-    Greater
-    Lower
-    Insertion
-    Deletion
-*/
 
 template <class T>
 class BST
@@ -30,6 +20,10 @@ class BST
         void inorder()
         {
             inorder(root);
+        }
+        void preorder()
+        {
+            preorder(root);
         }
         void Delete(T data)
         {
@@ -81,6 +75,15 @@ class BST
                 inorder(root->right);
             }
         }
+        void preorder(Node *root)
+        {
+            if(root)
+            {
+                cout<<root->data<<" ";
+                preorder(root->left);
+                preorder(root->right);
+            }
+        }
         Node* inorderSuccessor(Node *node)
         {
             Node *temp=node;
@@ -117,30 +120,27 @@ class BST
         }
 };
 
+void construct(BST<int> &btree,vector<int> preorder)
+{
+    for(auto i : preorder)
+    {
+        btree.insert(i);
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     #ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
     #endif
+    vector<int> preorder;
+    int t;
+    while(cin>>t)preorder.push_back(t);
     BST<int> btree;
-    btree.insert(50);
-    btree.insert(30);
-    btree.insert(20);
-    btree.insert(40);
-    btree.insert(70);
-    btree.insert(60);
-    btree.insert(80);
-    btree.inorder();
-    btree.Delete(20);
+    construct(btree,preorder);
+    btree.preorder();
     cout<<"\n";
     btree.inorder();
-    btree.Delete(30);
-    cout<<"\n";
-    btree.inorder();
-    btree.Delete(50);
-    cout<<"\n";
-    btree.inorder();
-    cout<<"\n"<<btree.search(60)<<" "<<btree.search(20);
     return 0;
 }
