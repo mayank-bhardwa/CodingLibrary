@@ -36,9 +36,10 @@
 ehthumbs.db
 Thumbs.db
 .vscode
+.gitignore
 input.txt
 output.txt
 error.txt
 eoutput.txt
 version.cpp
-cp.code-workspace
+codinglibrary.code-workspace
