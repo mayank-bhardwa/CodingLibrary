@@ -44,3 +44,4 @@ eoutput.txt
 version.cpp
 codinglibrary.code-workspace
 input.txt
+*.txt
