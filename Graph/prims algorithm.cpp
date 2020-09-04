@@ -12,7 +12,7 @@ class weighted_graph{
     protected :
         int V;
         vector<ipair> *adj;
-        int k=0;
+        int k=0,mst_weight=0;
     public :
         weighted_graph(int n)
         {
@@ -33,8 +33,9 @@ class weighted_graph{
             }
         }
 
-        void mst(int source=0)
+        void mst()
         {
+            int source=0;
             priority_queue<ipair , vector<ipair> , greater<ipair>> pq;
             
             vector<int> key(V,INT_MAX);        // set containg weigths
@@ -63,10 +64,12 @@ class weighted_graph{
                 }  
             }
             
-            for(int i=0;i<V;i++)
+            for(int i=1;i<V;i++)
             {
+                mst_weight+=key[i];
                 cout<<parent[i]+1<<" "<< i+1 << " " << key[i] <<endl;
             }
+            cout<<"Weight of minimum spanning tree is :"<<mst_weight;
         }
     private :
         void goDeep(int u,vector<bool> &visited)
@@ -108,8 +111,8 @@ int main()
         cin>>a>>b>>c;
         graph.addEdge(a-1,b-1,c);
     }
-    graph.DFS();
-    cout<<endl;
-    graph.mst(3);
+    // graph.DFS();
+    // cout<<endl;
+    graph.mst();
     return 0;
 }
