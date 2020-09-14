@@ -12,16 +12,16 @@ struct DisjointSet
         this->v=n;
         size.resize(n+1);
         parent.resize(n+1);
-        for(int i=1;i<=n;i++)
+        for(int i=1;i<=n;i++)               //using 1 based indexing
         {
-            size[i] = 1;
-            parent[i] = i;
-        } 
+            size[i] = 1;                    //initially all nodes are free
+            parent[i] = i;                 //so it will be parent of itself  
+        }                                 //and size of it will be 1
     }
 
     int find(int a)
     {
-        while( a != parent[a] ) a = parent[a];
+        while( a != parent[a] ) a = parent[a];               //find 
         return a;
     }
 
