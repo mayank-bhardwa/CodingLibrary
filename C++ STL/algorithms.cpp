@@ -16,6 +16,7 @@ int main()
     #ifndef ONLINE_JUDGE
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
+        freopen("error.txt","w",stderr);
     #endif
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);cout.tie(NULL);
@@ -37,12 +38,15 @@ int main()
 
     cout << binary_search(arr,arr+5,4)<<endl;
 
-    vector<int> cpy(5);
+    vector<int> cpy(8);
     copy(arr,arr+5,cpy.begin());
     print(cpy);
 
     copy_backward(arr,arr+5,cpy.end());
     print(cpy);
     
+    //similar copy_n to copy first n elements
+
+    cout<<count_if(cpy.begin(),cpy.end(),[](auto a){return a==3;});
     return 0;    
 }
