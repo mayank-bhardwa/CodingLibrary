@@ -21,9 +21,9 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);cout.tie(NULL);
 
-    int arr[] = {1,3,4,5,46};
+    int arr[] = {7, 5, 10, 2, 3, 15};
     vector<int> result(5);
-
+    sort(arr,arr+6);
     adjacent_difference(arr,arr+5,result.begin());
     print(result);
 
