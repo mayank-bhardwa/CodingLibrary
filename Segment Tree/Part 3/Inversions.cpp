@@ -69,6 +69,5 @@ int main()
         cin>>a;
         cout << segtree.get(a-1) << " " ;
     }
-
     return 0;
 }

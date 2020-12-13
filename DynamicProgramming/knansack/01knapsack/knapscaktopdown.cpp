@@ -19,8 +19,8 @@ int knapsack(int values[],int weights[],int W,int n){
     for(int i=0;i<=W;i++){
         t[0][i]=0;
     }
-    for(int i=0;i<=n;i++){
-        for(int j=0;j<=W;j++){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=W;j++){
             if(weights[i-1]<=j){
                 t[i][j]=max( t[i-1][j] ,
                              t[i-1][j-weights[i-1]]+values[i-1] );

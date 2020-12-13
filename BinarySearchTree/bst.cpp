@@ -19,11 +19,11 @@ class BST
         struct Node
         {
             T data;
-            struct Node *left,*right;
+            struct Node *left,*right; 
         };
         Node *root;
     public : 
-        void insert(T data)
+        void insert(T data)  
         {
             root=insert(root,data);
         }
