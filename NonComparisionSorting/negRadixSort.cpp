@@ -1,104 +1,97 @@
-/*
-    Counting Sort with handling of negative numbers
-*/
-
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include <chrono>
+#define deb(x) cout << #x << " " << x << endl
 using namespace std;
 
-template <typename t>
-t MaxD(vector<t> arr)
+int AbsMax(vector<int> arr)
 {
-    int d = 0;
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (d < abs(arr[i]))
-            d = arr[i];
-    }
-    return d;
-}
-
-template <typename t>
-void CountingSort(vector<t> &arr, int k)
-{
-    int mod = pow(10, k);
-    int freq[10] = {0};
-
+    int mx = 0;
     for (auto i : arr)
     {
-        freq[(abs(i) % mod) / (mod / 10)]++;
+        if (abs(i) > mx)
+            mx = abs(i);
     }
 
-    for (int i = 1; i < 10; i++)
+    return mx;
+}
+
+void CountingSort(vector<int> &arr, int k)
+{
+    vector<int> temp(arr.size(), 0);
+    vector<int> freq(19, 0);
+    int ele, t;
+
+    int mod = pow(10, k);
+    int modPre = mod / 10;
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        t = (arr[i] % mod) / modPre;
+        if (i < 0)
+        {
+            t *= -1;
+        }
+        ele = t + 9;
+        freq[ele]++;
+    }
+
+    for (int i = 1; i < 19; i++)
     {
         freq[i] += freq[i - 1];
     }
 
-    vector<t> res(arr.size());
-    int z;
     for (int i = arr.size() - 1; i >= 0; i--)
     {
-        z = (abs(arr[i]) % mod) / (mod / 10);
-        res[freq[z] - 1] = arr[i];
-        freq[z]--;
+        t = (arr[i] % mod) / modPre;
+        if (i < 0)
+        {
+            t *= -1;
+        }
+        ele = t + 9;
+
+        temp[freq[ele] - 1] = arr[i];
+        freq[ele]--;
     }
 
     for (int i = 0; i < arr.size(); i++)
-    {
-        arr[i] = res[i];
-    }
+        arr[i] = temp[i];
 }
 
-template <typename t>
-void RadixSort(vector<t> &arr)
+void RadixSort(vector<int> &arr)
 {
-    int maxD = MaxD(arr);
+    int len = AbsMax(arr);
 
-    for (int i = 1; maxD != 0; i++, maxD /= 10)
-    {
+    for (int i = 1; len > 0; i++, len /= 10)
         CountingSort(arr, i);
-    }
-
-    int temp;
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (arr[i] < 0)
-        {
-            temp = arr[i];
-            arr.erase(arr.begin() + i);
-            arr.insert(arr.begin(), temp);
-        }
-    }
 }
 
 int main()
 {
-    vector<int> arr(100000);
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+
     int i;
-    for (i = 0; i < 5000; i++)
+    for (i = 0; i < n; i++)
     {
-        arr[i] = (rand() >> 1) * -1;
+        if (i & 1)
+            arr[i] = rand() % 1000;
+        else
+            arr[i] = -1 * (rand() % 1000);
     }
 
-    for (; i < 100000; i++)
-    {
-        arr[i] = rand() >> 1;
-    }
-
-    auto start = chrono::high_resolution_clock::now();
+    cout << "Array before Sorting is: ";
+    for (auto i : arr)
+        cout << i << " ";
+    cout << endl;
 
     RadixSort(arr);
 
-    auto end = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
-    cout << "Time elapsed in execution " << duration << " milisec";
-
+    cout << "Sorted Array is: ";
     for (auto i : arr)
-    {
         cout << i << " ";
-    }
+    cout << endl;
 
     return 0;
 }
